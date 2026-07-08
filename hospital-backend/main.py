@@ -53,3 +53,17 @@ def get_doctors(
     doctors = crud.get_all_doctors(db)
 
     return doctors
+
+
+@app.get("/doctor-slots/{doctor_id}")
+def get_doctor_slots(
+    doctor_id: int,
+    db: Session = Depends(get_db)
+):
+
+    slots = crud.get_available_slots(
+        db,
+        doctor_id
+    )
+
+    return slots

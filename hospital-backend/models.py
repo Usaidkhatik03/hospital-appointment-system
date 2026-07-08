@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String,Date,Time,Boolean
 from database import Base
-
 
 class Patient(Base):
 
@@ -30,3 +29,18 @@ class Doctor(Base):
     specialization = Column(String(100))
 
     consultation_fee = Column(Integer)
+
+
+class DoctorSlot(Base):
+
+    __tablename__ = "doctor_slots"
+
+    slot_id = Column(Integer, primary_key=True, index=True)
+
+    doctor_id = Column(Integer)
+
+    appointment_date = Column(Date)
+
+    slot_time = Column(Time)
+
+    is_booked = Column(Boolean)

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../services/api";
 import { useEffect } from "react";
-import { getDoctors } from "../services/api";
+import { getDoctors, getDoctorSlots } from "../services/api";
 
 function BookAppointment() {
     const [fullName, setFullName] = useState("");
@@ -11,6 +11,7 @@ function BookAppointment() {
     const [email, setEmail] = useState("");
     const [symptoms, setSymptoms] = useState("");
     const [doctor, setDoctor] = useState("");
+    const [slots, setSlots] = useState([]);
     const [appointmentDate, setAppointmentDate] = useState("");
     const [appointmentTime, setAppointmentTime] = useState("");
 
@@ -41,6 +42,24 @@ useEffect(() => {
     fetchDoctors();
 
 }, []);
+
+const fetchSlots = async (doctorId) => {
+
+    try {
+
+        const response = await getDoctorSlots(doctorId);
+
+        console.log(response.data);
+
+        setSlots(response.data);
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+};
 
 
 const handleSubmit = async (e) => {
@@ -224,18 +243,24 @@ const handleSubmit = async (e) => {
           <br />
 
           <select
-    value={doctor}
-    onChange={(e) => setDoctor(e.target.value)}
->
-    <option value="">Select Doctor</option>
+                value={doctor}
+                onChange={(e) => {
 
-    {doctors.map((doctor) => (
-        <option
-            key={doctor.doctor_id}
-            value={doctor.doctor_id}
-        >
-            {doctor.doctor_name} - {doctor.specialization}
-        </option>
+                    setDoctor(e.target.value);
+
+                    fetchSlots(e.target.value);
+
+                }}
+            >
+         <option value="">Select Doctor</option>
+
+            {doctors.map((doctor) => (
+                <option
+                    key={doctor.doctor_id}
+                    value={doctor.doctor_id}
+                >
+                    {doctor.doctor_name} - {doctor.specialization}
+                </option>
     ))}
 
 </select>
@@ -257,14 +282,32 @@ const handleSubmit = async (e) => {
         <br />
 
         <div>
-          <label>Preferred Time</label>
-          <br />
-          <input
-            type="time"
-            value={appointmentTime}
-            onChange={(e) => setAppointmentTime(e.target.value)}
-        />
-        </div>
+
+    <label>Available Time Slots</label>
+
+    <br />
+
+    <select
+        value={appointmentTime}
+        onChange={(e) => setAppointmentTime(e.target.value)}
+    >
+
+        <option value="">Select Time</option>
+
+        {slots.map((slot) => (
+
+            <option
+                key={slot.slot_id}
+                value={slot.slot_id}
+            >
+                {slot.slot_time}
+            </option>
+
+        ))}
+
+    </select>
+
+</div>
 
         <br />
 
