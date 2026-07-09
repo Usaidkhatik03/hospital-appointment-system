@@ -44,3 +44,22 @@ class DoctorSlot(Base):
     slot_time = Column(Time)
 
     is_booked = Column(Boolean)
+
+
+class Appointment(Base):
+
+    __tablename__ = "appointments"
+
+    appointment_id = Column(Integer, primary_key=True, index=True)
+
+    appointment_number = Column(String(30))
+
+    patient_id = Column(Integer)
+
+    doctor_id = Column(Integer)
+
+    slot_id = Column(Integer)
+
+    symptoms = Column(String(500))
+
+    appointment_status = Column(String(50))

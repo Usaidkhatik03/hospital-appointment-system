@@ -36,14 +36,48 @@ def create_appointment(
     if patient is None:
 
         patient = crud.create_patient(
+            db,
+            data
+        )
+
+    appointment_number = f"APT-{patient.patient_id:06d}"
+
+    appointment = crud.create_appointment(
+
+        db=db,
+
+        appointment_number=appointment_number,
+
+        patient_id=patient.patient_id,
+
+        doctor_id=int(data.doctor),
+
+        slot_id=int(data.appointmentTime),
+
+        symptoms=data.symptoms
+
+    )
+
+    crud.book_slot(
+
         db,
-        data
+
+        int(data.appointmentTime)
+
     )
 
     return {
-        "message": "Patient saved successfully",
-        "patient_id": patient.patient_id
+
+        "message": "Appointment Booked Successfully",
+
+        "appointment_number": appointment.appointment_number,
+
+        "appointment_id": appointment.appointment_id
+
     }
+
+
+
 
 @app.get("/doctors")
 def get_doctors(

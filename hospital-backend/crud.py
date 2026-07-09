@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from models import Patient
 from models import Doctor
 from models import DoctorSlot
-
+from models import Appointment
 
 def create_patient(db: Session, data):
 
@@ -42,3 +42,52 @@ def get_available_slots(db: Session, doctor_id: int):
         )
         .all()
     )
+
+
+def create_appointment(
+    db: Session,
+    appointment_number,
+    patient_id,
+    doctor_id,
+    slot_id,
+    symptoms
+):
+
+    appointment = Appointment(
+
+        appointment_number=appointment_number,
+
+        patient_id=patient_id,
+
+        doctor_id=doctor_id,
+
+        slot_id=slot_id,
+
+        symptoms=symptoms,
+
+        appointment_status="Confirmed"
+
+    )
+
+    db.add(appointment)
+
+    db.commit()
+
+    db.refresh(appointment)
+
+    return appointment
+
+
+def book_slot(db: Session, slot_id: int):
+
+    slot = db.query(DoctorSlot).filter(
+        DoctorSlot.slot_id == slot_id
+    ).first()
+
+    if slot:
+
+        slot.is_booked = True
+
+        db.commit()
+
+    return slot
