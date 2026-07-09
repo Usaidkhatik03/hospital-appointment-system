@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../services/api";
 import { useEffect } from "react";
 import { getDoctors, getDoctorSlots } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function BookAppointment() {
   const [fullName, setFullName] = useState("");
@@ -12,6 +13,7 @@ function BookAppointment() {
   const [symptoms, setSymptoms] = useState("");
   const [doctor, setDoctor] = useState("");
   const [slots, setSlots] = useState([]);
+  const navigate = useNavigate();
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
 
@@ -114,7 +116,11 @@ function BookAppointment() {
 
       console.log(response.data);
 
-      alert("Appointment Submitted Successfully");
+      navigate("/success", {
+    state: {
+        appointment: response.data
+    }
+});
     } catch (error) {
       console.log(error);
 
