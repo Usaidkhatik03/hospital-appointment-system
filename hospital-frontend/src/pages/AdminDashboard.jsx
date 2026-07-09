@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAppointments } from "../services/api";
+import { getAppointments, updateAppointmentStatus } from "../services/api";
 
 function AdminDashboard() {
   const [appointments, setAppointments] = useState([]);
@@ -15,6 +15,18 @@ function AdminDashboard() {
       setAppointments(response.data);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleStatusUpdate = async (appointmentId, status) => {
+    try {
+      await updateAppointmentStatus(appointmentId, status);
+
+      fetchAppointments();
+    } catch (error) {
+      console.log(error);
+
+      alert("Failed to update status");
     }
   };
 
@@ -63,6 +75,7 @@ function AdminDashboard() {
             <th>Date</th>
             <th>Time</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -90,6 +103,29 @@ function AdminDashboard() {
                 <td>{appointment.appointment_date}</td>
                 <td>{appointment.appointment_time}</td>
                 <td>{appointment.status}</td>
+                <td>
+                  <button
+                    onClick={() =>
+                      handleStatusUpdate(
+                        appointment.appointment_id,
+                        "Completed",
+                      )
+                    }
+                  >
+                    Complete
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      handleStatusUpdate(
+                        appointment.appointment_id,
+                        "Cancelled",
+                      )
+                    }
+                  >
+                    Cancel
+                  </button>
+                </td>
               </tr>
             ))}
         </tbody>

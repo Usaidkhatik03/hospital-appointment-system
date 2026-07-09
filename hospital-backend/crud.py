@@ -97,19 +97,21 @@ def get_all_appointments(db: Session):
 
         db.query(
 
-            Appointment.appointment_number,
+    Appointment.appointment_id,
 
-            Patient.full_name,
+    Appointment.appointment_number,
 
-            Doctor.doctor_name,
+    Patient.full_name,
 
-            DoctorSlot.appointment_date,
+    Doctor.doctor_name,
 
-            DoctorSlot.slot_time,
+    DoctorSlot.appointment_date,
 
-            Appointment.appointment_status
+    DoctorSlot.slot_time,
 
-        )
+    Appointment.appointment_status
+
+)
 
         .join(
 
@@ -145,18 +147,41 @@ def get_all_appointments(db: Session):
 
         appointments.append({
 
-            "appointment_number": row[0],
+    "appointment_id": row[0],
 
-            "patient_name": row[1],
+    "appointment_number": row[1],
 
-            "doctor_name": row[2],
+    "patient_name": row[2],
 
-            "appointment_date": str(row[3]),
+    "doctor_name": row[3],
 
-            "appointment_time": str(row[4]),
+    "appointment_date": str(row[4]),
 
-            "status": row[5]
+    "appointment_time": str(row[5]),
 
-        })
+    "status": row[6]
+
+})
 
     return appointments
+
+
+def update_appointment_status(
+    db: Session,
+    appointment_id: int,
+    status: str
+):
+
+    appointment = db.query(Appointment).filter(
+        Appointment.appointment_id == appointment_id
+    ).first()
+
+    if appointment:
+
+        appointment.appointment_status = status
+
+        db.commit()
+
+        db.refresh(appointment)
+
+    return appointment

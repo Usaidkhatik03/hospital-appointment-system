@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from schemas import PatientCreate
+from schemas import PatientCreate, AppointmentStatusUpdate
 
 from fastapi import Depends
 from sqlalchemy.orm import Session
@@ -111,3 +111,27 @@ def get_appointments(
     appointments = crud.get_all_appointments(db)
 
     return appointments
+
+
+@app.put("/appointments/{appointment_id}/status")
+def update_status(
+    appointment_id: int,
+    data: AppointmentStatusUpdate,
+    db: Session = Depends(get_db)
+):
+
+    appointment = crud.update_appointment_status(
+        db,
+        appointment_id,
+        data.status
+    )
+
+    if appointment is None:
+
+        return {
+            "message": "Appointment not found"
+        }
+
+    return {
+        "message": "Status Updated Successfully"
+    }

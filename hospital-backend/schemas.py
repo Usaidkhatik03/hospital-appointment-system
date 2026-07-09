@@ -12,3 +12,7 @@ class PatientCreate(BaseModel):
     doctor: str
     appointmentDate: str
     appointmentTime: str
+
+
+class AppointmentStatusUpdate(BaseModel):
+    status: str

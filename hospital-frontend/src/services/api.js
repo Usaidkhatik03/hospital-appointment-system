@@ -12,3 +12,9 @@ export const getDoctorSlots = (doctorId) =>
     api.get(`/doctor-slots/${doctorId}`);
 
 export const getAppointments = () => api.get("/appointments");
+
+export const updateAppointmentStatus = (appointmentId, status) => {
+  return api.put(`/appointments/${appointmentId}/status`, {
+    status,
+  });
+};
