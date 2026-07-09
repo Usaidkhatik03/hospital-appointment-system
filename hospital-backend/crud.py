@@ -91,3 +91,9 @@ def book_slot(db: Session, slot_id: int):
         db.commit()
 
     return slot
+
+
+
+def get_all_appointments(db: Session):
+
+    return db.query(Appointment).all()

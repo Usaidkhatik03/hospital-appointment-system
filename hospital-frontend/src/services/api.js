@@ -10,3 +10,5 @@ export const getDoctors = () => api.get("/doctors");
 
 export const getDoctorSlots = (doctorId) =>
     api.get(`/doctor-slots/${doctorId}`);
+
+export const getAppointments = () => api.get("/appointments");

@@ -101,3 +101,13 @@ def get_doctor_slots(
     )
 
     return slots
+
+
+@app.get("/appointments")
+def get_appointments(
+    db: Session = Depends(get_db)
+):
+
+    appointments = crud.get_all_appointments(db)
+
+    return appointments
