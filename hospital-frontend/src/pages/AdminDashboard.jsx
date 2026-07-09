@@ -36,9 +36,10 @@ function AdminDashboard() {
       <thead>
         <tr>
           <th>Appointment No</th>
-          <th>Patient ID</th>
-          <th>Doctor ID</th>
-          <th>Symptoms</th>
+          <th>Patient</th>
+          <th>Doctor</th>
+          <th>Date</th>
+          <th>Time</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -47,10 +48,11 @@ function AdminDashboard() {
         {appointments.map((appointment) => (
           <tr key={appointment.appointment_id}>
             <td>{appointment.appointment_number}</td>
-            <td>{appointment.patient_id}</td>
-            <td>{appointment.doctor_id}</td>
-            <td>{appointment.symptoms}</td>
-            <td>{appointment.appointment_status}</td>
+            <td>{appointment.patient_name}</td>
+            <td>{appointment.doctor_name}</td>
+            <td>{appointment.appointment_date}</td>
+            <td>{appointment.appointment_time}</td>
+            <td>{appointment.status}</td>
           </tr>
         ))}
       </tbody>

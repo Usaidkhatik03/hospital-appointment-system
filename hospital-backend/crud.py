@@ -1,8 +1,5 @@
 from sqlalchemy.orm import Session
-from models import Patient
-from models import Doctor
-from models import DoctorSlot
-from models import Appointment
+from models import Patient, Doctor, DoctorSlot, Appointment
 
 def create_patient(db: Session, data):
 
@@ -96,4 +93,70 @@ def book_slot(db: Session, slot_id: int):
 
 def get_all_appointments(db: Session):
 
-    return db.query(Appointment).all()
+    results = (
+
+        db.query(
+
+            Appointment.appointment_number,
+
+            Patient.full_name,
+
+            Doctor.doctor_name,
+
+            DoctorSlot.appointment_date,
+
+            DoctorSlot.slot_time,
+
+            Appointment.appointment_status
+
+        )
+
+        .join(
+
+            Patient,
+
+            Appointment.patient_id == Patient.patient_id
+
+        )
+
+        .join(
+
+            Doctor,
+
+            Appointment.doctor_id == Doctor.doctor_id
+
+        )
+
+        .join(
+
+            DoctorSlot,
+
+            Appointment.slot_id == DoctorSlot.slot_id
+
+        )
+
+        .all()
+
+    )
+
+    appointments = []
+
+    for row in results:
+
+        appointments.append({
+
+            "appointment_number": row[0],
+
+            "patient_name": row[1],
+
+            "doctor_name": row[2],
+
+            "appointment_date": str(row[3]),
+
+            "appointment_time": str(row[4]),
+
+            "status": row[5]
+
+        })
+
+    return appointments
