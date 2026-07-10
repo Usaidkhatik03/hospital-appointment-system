@@ -105,25 +105,31 @@ Hospital_Appointment_System/
 
 ### 🏠 Home Page
 
-(Add Screenshot)
+Professional landing page with hospital information and quick appointment booking.
 
+![Home](screenshots/Home1.png)
+![Home](screenshots/Home2.png)
 ---
 
 ### 📅 Book Appointment
 
-(Add Screenshot)
+An intuitive, step-by-step scheduling interface where patients can select medical specialties, choose preferred doctors, and view real-time calendar availability.
+
+![Home](screenshots/BookAppointment.png)
 
 ---
 
 ### ✅ Appointment Success
 
-(Add Screenshot)
+![Home](screenshots/BookAppointment.png)
 
 ---
 
 ### 📊 Admin Dashboard
 
-(Add Screenshot)
+A comprehensive management hub for hospital staff to track daily appointments, manage doctor schedules, view patient analytics, and update hospital capacity metrics at a glance.
+
+![Home](screenshots/AdminDashboard.png)
 
 ---
 
