@@ -7,6 +7,7 @@ import BookAppointment from "./pages/BookAppointment";
 import Payment from "./pages/Payment";
 import Success from "./pages/Success";
 import AdminDashboard from "./pages/AdminDashboard";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
 
       </Routes>
+
+      <Footer />
 
     </BrowserRouter>
   );
