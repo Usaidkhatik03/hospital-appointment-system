@@ -121,7 +121,9 @@ An intuitive, step-by-step scheduling interface where patients can select medica
 
 ### ✅ Appointment Success
 
-![Home](screenshots/BookAppointment.png)
+Confirmation page providing the final booking status, tracking numbers, and official appointment confirmation details.
+
+![Home](screenshots/AppointmentSuccesful.png)
 
 ---
 
@@ -199,8 +201,3 @@ Computer Engineering Graduate
 
 AI Engineer Enthusiast
 
-LinkedIn:
-(Add LinkedIn)
-
-GitHub:
-(Add GitHub)
